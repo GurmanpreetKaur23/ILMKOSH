@@ -1,0 +1,71 @@
+.ilmkosh {
+    padding: 20px;
+    margin: 0 auto;
+    background-color: #F0E2C6; /* Background Color: Pale Almond */
+    width: fit-content;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .bookshelf {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    margin: 20px 0;
+  }
+  
+  .book {
+    width: 95px; /* Adjusted width for a narrower look */
+    height: 250px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    transform: rotate(-5deg); /* Tilted for visual appeal */
+    position: relative; /* Needed for the positioning of book-info */
+  }
+  
+  .book:nth-child(odd) {
+    transform: rotate(5deg); /* Alternate tilt for odd books */
+  }
+  
+  .book:hover {
+    transform: scale(1.05) rotate(0deg); /* Straightens and enlarges on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  }
+  
+  .book-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #F0E2C6; /* Secondary Color: Warm Beige */
+    font-family: 'Georgia, serif';
+    writing-mode: vertical-rl; /* Vertical text for Hindi and Urdu */
+    transform: rotate(180deg); /* Rotate text to align vertically */
+  }
+  
+  .book-info {
+    position: absolute;
+    bottom: -90px; /* Ensure it's clearly below the book */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    background-color: #4B2E2E; /* Espresso Brown */
+    padding: 15px; /* Adjust padding for a better look */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5); /* More prominent shadow */
+    color: #F0E2C6; /* Secondary Color: Warm Beige for text */
+    font-size: 0.9rem; /* Slightly larger font size */
+    opacity: 0;
+    transition: opacity 0.3s ease, bottom 0.3s ease;
+    white-space: nowrap; /* Ensure text doesn't wrap */
+  }
+  
+  .book:hover .book-info {
+    opacity: 1;
+    bottom: -80px; /* Adjust for spacing */
+  }
+  

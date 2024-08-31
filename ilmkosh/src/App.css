@@ -1,0 +1,55 @@
+.mainDiv{
+  padding-top: 3vh;
+  width: 100vw; 
+  height: 100vh; 
+  background-size: cover;
+  overflow:hidden;
+}
+
+.navbar {
+  width: 90vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #F0E2C6;
+  height: 8vh;
+  margin: auto;
+  padding: 0 1rem;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border: 2px solid #3E2723;
+}
+
+
+.cont1, .cont2, .cont3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cont1 {
+  height: 100%;
+  width: 9vw;
+  margin-left: 1rem;
+  
+}
+
+.cont1 img{
+  height: 70%;
+  width: 100%;
+}
+.cont2 {
+  width: 30vw;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cont3 a {
+  margin-left: 1rem;
+  cursor: pointer;
+  margin-right: 1rem;
+
+}
+
+.navbar a{
+  text-decoration: none;
+}
