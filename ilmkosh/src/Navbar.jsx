@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import logo from "./images/logo_text.png";
 import Bookshelf from './pages/bookshelf/bookshelf';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
-
+import Login from './pages/login'; // Ensure the correct import path and casing
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import Register from './pages/register';
+import Hero from './main';
 const Navbar = () => {
   const [showBookshelf, setShowBookshelf] = useState(false);
   const bookshelfRef = useRef(null);
@@ -53,6 +55,16 @@ const Navbar = () => {
           </div>
         )}
       </div>
+      
+      <Routes>
+        {/* Uncomment and adjust these routes as needed */}
+        {/* <Route path="/" element={<Home />} /> */}
+        <Route path="/" element={<Hero />} />
+        <Route path="/main" element={<Hero />} /> {/* Add route for the main page */}
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/bookshelf" element={<Bookshelf />} /> {/* Bookshelf as a separate route */}
+      </Routes>
     </Router>
   );
 };

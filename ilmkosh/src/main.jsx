@@ -1,8 +1,17 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+import React from 'react'
+import logo from "./images/logo_nobg.png";
 
-createRoot(document.getElementById('root')).render(
-    <App />
-)
+const Hero = () => {
+  return (
+    <div className='hero-section'>
+        <div >
+            <img src={logo} alt="Logo" />
+            <h1>TREASURE OF KNOWLEDGE</h1>
+            <button>Get Started</button>
+        </div>
+      
+    </div>
+  )
+}
+
+export default Hero
