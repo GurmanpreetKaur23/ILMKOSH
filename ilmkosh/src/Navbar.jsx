@@ -1,10 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import logo from "./images/logo_text.png";
+
 import Bookshelf from './pages/bookshelf/bookshelf';
 import Login from './pages/login'; // Ensure the correct import path and casing
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Register from './pages/register';
+
 import Hero from './main';
+
 import Fiction from './pages/bookshelf/genres/fiction';
 import Mystery from './pages/bookshelf/genres/mystery';
 import SciFi from './pages/bookshelf/genres/sci-fi';
@@ -65,13 +68,11 @@ const Navbar = () => {
       </div>
       
       <Routes>
-        {/* Uncomment and adjust these routes as needed */}
-        {/* <Route path="/" element={<Home />} /> */}
         <Route path="/" element={<Hero />} />
-        <Route path="/main" element={<Hero />} /> {/* Add route for the main page */}
+        <Route path="/main" element={<Hero />} /> 
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/bookshelf" element={<Bookshelf />} /> {/* Bookshelf as a separate route */}
+        <Route path="/bookshelf" element={<Bookshelf />} /> 
         <Route path="/genre/fiction" element={<Fiction />} />
         <Route path="/genre/mystery" element={<Mystery />} />
         <Route path="/genre/sci-fi" element={<SciFi />} />
