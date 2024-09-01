@@ -1,6 +1,26 @@
 import React from "react";
 
 function Register() {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    fetch('/register', {
+      method: 'POST',
+      body: JSON.stringify({
+        name: formData.get('name'),
+        email: formData.get('email'),
+        password: formData.get('password'),
+        confirmPassword: formData.get('confirm-password'),
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+
   return (
     <div style={{ background: "url(background.jpg)", backgroundSize: "cover" }}>
       <style>
@@ -94,7 +114,7 @@ function Register() {
       </div>
 
       <div className="form-container">
-        <form className="register-form" method="post" action="/register">
+        <form className="register-form" onSubmit={handleSubmit}>
           <label htmlFor="name">Name</label>
           <br />
           <input type="text" placeholder="Enter your Name" id="name" name="name" required />
@@ -109,7 +129,7 @@ function Register() {
           <br />
           <label htmlFor="confirm-password">Confirm Password</label>
           <br />
-          <input type="password" placeholder="Confirm Password" id="confirm-password"name="confirm-password" required/>
+          <input type="password" placeholder="Confirm Password" id="confirm-password" name="confirm-password" required/>
           <br />
           <button type="submit">Register</button>
           <br />

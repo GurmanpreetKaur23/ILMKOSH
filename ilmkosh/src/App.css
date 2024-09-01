@@ -4,6 +4,7 @@
   height: 100vh; 
   background-size: cover;
   overflow:hidden;
+  overflow-y: scroll;
 }
 
 .navbar {

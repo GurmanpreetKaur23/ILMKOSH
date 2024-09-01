@@ -1,13 +1,12 @@
-// src/pages/Login.js
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { fetchUsers, validateUser } from '../pages/utils/authUtils'; // Import utility functions
+import { fetchUsers, validateUser } from './utils/authUtils'; // Corrected path
 
-function Login() {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // Use useNavigate instead of useHistory
+  const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -15,8 +14,8 @@ function Login() {
       const users = await fetchUsers();
       const user = validateUser(email, password, users);
       if (user) {
-        // Redirect to a protected route after successful login
-        navigate('/main'); // Use navigate instead of history.push
+        localStorage.setItem('user', JSON.stringify(user));
+        navigate('/');
       } else {
         setError('Invalid email or password');
       }
@@ -28,7 +27,7 @@ function Login() {
   return (
     <>
       <div className="login-container" style={{ background: "url(background.jpg)", backgroundSize: "cover" }}>
-      <style>
+        <style>
           {`
             .form-container {
               margin-top: 0px;
@@ -46,7 +45,7 @@ function Login() {
             }
 
             .main img {
-              width: 300px;
+              width: 200px;
               height: auto;
               padding: 0px;
               margin-top: 0px;
@@ -141,9 +140,7 @@ function Login() {
             }
           `}
         </style>
-        <div className="logo">
-          <img src="ilm.png" alt="Logo" />
-        </div>
+       
         <div style={{ textAlign: 'center' }}>
           <div style={{ width: '300px', margin: '0 auto', padding: '0px' }}>
             <div className="main">
@@ -153,7 +150,7 @@ function Login() {
         </div>
         <div className="form-container">
           <form className="login-form" onSubmit={handleLogin}>
-            <label htmlFor="email">Enter username</label><br />
+            <label htmlFor="email">Enter email</label><br />
             <input 
               type="email" 
               id="email" 
@@ -172,7 +169,7 @@ function Login() {
               required 
             /><br />
             <label htmlFor="remember-me">
-              <input type="checkbox" id="remember-me" name="remember-me" />Remember me
+              <input type="checkbox" id="remember-me" name="remember-me" /> Remember me
             </label><br />
             <button type="submit">Login</button><br />
             {error && <p style={{ color: 'red' }}>{error}</p>}
