@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './bookshelf.css';
-
+import { useNavigate } from 'react-router-dom';
 const genres = [
   { name: 'Fiction', color: '#3E2723', urdu: 'افسانہ' },
   { name: 'Mystery', color: '#4B2E2E', urdu: 'پراسرار' },
@@ -14,9 +14,10 @@ const genres = [
 
 const Ilmkosh = () => {
   const [hoveredBook, setHoveredBook] = useState(null);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const redirectToGenre = (genre) => {
-    console.log(`Redirecting to ${genre} books page`);
+    navigate(`/genre/${genre}`); // Navigate to the genre page
   };
 
   return (

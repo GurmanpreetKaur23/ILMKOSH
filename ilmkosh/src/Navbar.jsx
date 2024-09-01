@@ -5,6 +5,14 @@ import Login from './pages/login'; // Ensure the correct import path and casing
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Register from './pages/register';
 import Hero from './main';
+import Fiction from './pages/bookshelf/genres/fiction';
+import Mystery from './pages/bookshelf/genres/mystery';
+import SciFi from './pages/bookshelf/genres/sci-fi';
+import Romance from './pages/bookshelf/genres/romance';
+import Biography from './pages/bookshelf/genres/biography';
+import History from './pages/bookshelf/genres/history';
+import Philosophy from './pages/bookshelf/genres/philosophy';
+import Poetry from './pages/bookshelf/genres/poetry';
 const Navbar = () => {
   const [showBookshelf, setShowBookshelf] = useState(false);
   const bookshelfRef = useRef(null);
@@ -64,6 +72,14 @@ const Navbar = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/bookshelf" element={<Bookshelf />} /> {/* Bookshelf as a separate route */}
+        <Route path="/genre/fiction" element={<Fiction />} />
+        <Route path="/genre/mystery" element={<Mystery />} />
+        <Route path="/genre/sci-fi" element={<SciFi />} />
+        <Route path="/genre/romance" element={<Romance />} />
+        <Route path="/genre/biography" element={<Biography />} />
+        <Route path="/genre/history" element={<History />} />
+        <Route path="/genre/philosophy" element={<Philosophy />} />
+        <Route path="/genre/poetry" element={<Poetry />} />
       </Routes>
     </Router>
   );
