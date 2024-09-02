@@ -8,11 +8,11 @@
 }
 
 .hero-section div {
-    max-width: 600px;
-    padding: 30px;
+    max-width: 500px;
+    padding: 10px;
     border: 2px solid #d4af37; /* Gold border */
     border-radius: 10px;
-    background-color: #F0E2C6; /* Slightly transparent white background */
+    /* background-color: #F0E2C6; Slightly transparent white background */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
@@ -23,8 +23,10 @@
 
 .hero-section h1 {
     font-size: 3rem; /* Larger font size */
-    color: #3E2723; /* Deep Mocha color */
-    font-family: 'Georgia', serif; /* Royal serif font */
+    color: #F0E2C6; /* Deep Mocha color */
+    font-family: 'Playwrite CU';
+    font-style: normal;
+    font-weight: 100 400;
     margin-bottom: 20px;
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
 }

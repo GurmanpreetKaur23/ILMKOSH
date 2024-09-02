@@ -14,6 +14,7 @@ const Login = () => {
       const users = await fetchUsers();
       const user = validateUser(email, password, users);
       if (user) {
+        console.log('Logged in user details:', user); // Print user details in console
         localStorage.setItem('user', JSON.stringify(user));
         navigate('/');
       } else {

@@ -1,9 +1,12 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-
-const router = express.Router();
+const app = express();  
+const port = 5000;
 const dataPath = path.join(__dirname, 'MOCK_DATA.json');
+
+// Middleware to parse JSON request bodies
+app.use(express.json());
 
 // Helper function to read data from MOCK_DATA.json
 const readData = () => {
@@ -17,37 +20,28 @@ const writeData = (data) => {
 };
 
 // GET route to fetch all users
-router.get('/users', (req, res) => {
+app.get('/api/users', (req, res) => {
   const users = readData();
   res.json(users);
 });
 
 // POST route to register a new user
-router.post('/register', (req, res) => {
+app.post('/api/users', (req, res) => {
   const users = readData();
-  const newUser = req.body;
-
-  // Check for existing user with the same email
-  const userExists = users.find(user => user.email === newUser.email);
-  if (userExists) {
-    return res.status(400).json({ message: 'User already exists' });
-  }
-
-  // Add the new user to the list
-  newUser.id = users.length ? users[users.length - 1].id + 1 : 1;
+  const newUser = { ...req.body, id: users.length + 1 }; // Add new user with an incremented ID
   users.push(newUser);
   writeData(users);
-  res.status(201).json(newUser);
+  res.status(201).json({ status: 'success', id: newUser.id });
 });
 
 // PUT route to update an existing user
-router.put('/users/:id', (req, res) => {
+app.put('/api/users/:id', (req, res) => {
   const users = readData();
   const userId = parseInt(req.params.id, 10);
   const updatedUser = req.body;
 
   // Find the user to update
-  const userIndex = users.findIndex(user => user.id === userId);
+  const userIndex = users.findIndex((user) => user.id === userId);
   if (userIndex === -1) {
     return res.status(404).json({ message: 'User not found' });
   }
@@ -59,12 +53,12 @@ router.put('/users/:id', (req, res) => {
 });
 
 // DELETE route to remove a user
-router.delete('/users/:id', (req, res) => {
+app.delete('/api/users/:id', (req, res) => {
   const users = readData();
   const userId = parseInt(req.params.id, 10);
 
   // Find the user to delete
-  const userIndex = users.findIndex(user => user.id === userId);
+  const userIndex = users.findIndex((user) => user.id === userId);
   if (userIndex === -1) {
     return res.status(404).json({ message: 'User not found' });
   }
@@ -75,4 +69,7 @@ router.delete('/users/:id', (req, res) => {
   res.status(204).end();
 });
 
-module.exports = router;
+// Start the server
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}/`);
+});

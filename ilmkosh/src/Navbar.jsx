@@ -5,6 +5,7 @@ import Bookshelf from './pages/bookshelf/bookshelf';
 import Login from './pages/login'; // Ensure the correct import path and casing
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Register from './pages/register';
+import Getstarted from './new';
 
 import Hero from './main';
 
@@ -52,8 +53,8 @@ const Navbar = () => {
             <Link to="/my-library">My Library</Link>
           </div>
           <div className="cont3">
-            <Link to="/get-started">Get Started</Link>
             <Link to="/login">Login</Link>
+            <Link to="/register">Sign Up</Link>
           </div>
         </div>
         {showBookshelf && (
@@ -81,6 +82,7 @@ const Navbar = () => {
         <Route path="/genre/history" element={<History />} />
         <Route path="/genre/philosophy" element={<Philosophy />} />
         <Route path="/genre/poetry" element={<Poetry />} />
+        <Route path="/new" element={<Getstarted/>}/>
       </Routes>
     </Router>
   );

@@ -1,12 +1,10 @@
-// src/utils/authUtils.js
 import mockData from '../MOCK_DATA.json';
 
 export const fetchUsers = async () => {
-  // Simulate a delay and return mock data
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(mockData);
-    }, 500); // 500ms delay for demonstration
+    }, 500); 
   });
 };
 

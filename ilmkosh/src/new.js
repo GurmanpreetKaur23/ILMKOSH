@@ -1,41 +1,36 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Romance = () => {
+const Getstarted = () => {
   const [selectedBook, setSelectedBook] = useState(null);
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get("https://www.googleapis.com/books/v1/volumes?q=philosophy&key=AIzaSyCSvSsw52clyt8ozO8HuXn6u6H7_PwtfOU&maxResults=39");
-        const filteredBooks = response.data.items.filter(book => book.volumeInfo.imageLinks?.thumbnail);
-        
-        // Log the fetched book details
-        console.log('Fetched Books:', filteredBooks);
-        
-        setBooks(filteredBooks);
+        const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=free-ebooks&key=AIzaSyCSvSsw52clyt8ozO8HuXn6u6H7_PwtfOU&maxResults=30`);
+        setBooks(response.data.items);
       } catch (error) {
-        console.error('Error fetching books:', error);
+        console.error(error);
       }
     };
     fetchBooks();
   }, []);
 
-  const handleReadClick = useCallback((book) => {
+  const handleReadClick = (book) => {
     setSelectedBook(book);
-  }, []);
+  };
 
-  const handleClosePopup = useCallback(() => {
+  const handleClosePopup = () => {
     setSelectedBook(null);
-  }, []);
+  };
 
-  const handleOpenPreview = useCallback(() => {
-    if (selectedBook?.volumeInfo?.previewLink) {
+  const handleOpenPreview = () => {
+    if (selectedBook && selectedBook.volumeInfo.previewLink) {
       window.open(selectedBook.volumeInfo.previewLink, '_blank');
     }
-    setSelectedBook(null);
-  }, [selectedBook]);
+    setSelectedBook(null); // Close the popup after opening the link
+  };
 
   return (
     <div className='Main'>
@@ -62,6 +57,7 @@ const Romance = () => {
             justify-items: center;
           }
           .book-item button {
+            grid-row: 4;
             border-radius: 10px;
             border: 2px solid #D8C3A5;
             background-color: #D8C3A5;
@@ -75,6 +71,7 @@ const Romance = () => {
           }
           .book-item h3 {
             font-size: 1em;
+            flex-wrap: wrap;
             margin-top: 10px;
           }
           .book-item p {
@@ -121,7 +118,7 @@ const Romance = () => {
             width: 80%;
             max-width: 600px;
             max-height: 80%;
-            overflow-y: auto;
+            overflow-y: auto; /* Allows vertical scrolling */
             position: relative;
           }
           .popup-content button {
@@ -142,27 +139,19 @@ const Romance = () => {
         `}
       </style>
       <h1 style={{ fontFamily: "Italianno, system-ui", color: "#D8C3A5", fontWeight: "550", fontSize: "50px", textAlign: "center" }}>
-        Philosophy Books
+        Free Books
       </h1>
       <div className="books-list">
-        {books.length > 0 ? (
-          books.map((book) => (
-            <div key={book.id} className="book-item">
-              <img
-                src={book.volumeInfo.imageLinks.thumbnail}
-                alt={book.volumeInfo.title}
-                onError={(e) => e.target.style.display = 'none'} // Hide the image if an error occurs
-              />
-              <h3 className="booktitle">
-                {book.volumeInfo.title}
-              </h3>
-              <p className="booktitle">{book.volumeInfo.authors?.join(', ')}</p>
-              <button onClick={() => handleReadClick(book)}>Read</button>
-            </div>
-          ))
-        ) : (
-          <p>No books available.</p>
-        )}
+        {books.map((book) => (
+          <div key={book.id} className="book-item">
+            <img src={book.volumeInfo.imageLinks?.thumbnail} alt={book.volumeInfo.title} />
+            <h3 className="booktitle">
+              {book.volumeInfo.title}
+            </h3>
+            <p className="booktitle">{book.volumeInfo.authors?.join(', ')}</p>
+            <button onClick={() => handleReadClick(book)}>Read</button>
+          </div>
+        ))}
       </div>
       {selectedBook && (
         <div className="popup-container">
@@ -178,4 +167,4 @@ const Romance = () => {
   );
 }
 
-export default Romance;
+export default Getstarted;

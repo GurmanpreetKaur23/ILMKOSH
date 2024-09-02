@@ -13,6 +13,8 @@ app.use(bodyParser.json());
 // Helper functions
 const readData = () => {
   const data = fs.readFileSync(dataPath);
+  console.log("data" , data);
+  
   return JSON.parse(data);
 };
 

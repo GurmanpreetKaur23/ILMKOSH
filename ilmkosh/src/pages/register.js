@@ -1,10 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
 
 function Register() {
+  const navigate = useNavigate(); // Initialize the navigate function
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    fetch('/register', {
+    
+    fetch('/api/users', {  // Endpoint for user registration
       method: 'POST',
       body: JSON.stringify({
         name: formData.get('name'),
@@ -17,8 +21,16 @@ function Register() {
       },
     })
       .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error(error));
+      .then((data) => {
+        console.log(data);
+        if (data.success) {  // Assuming your backend sends a success flag on successful registration
+          navigate('/login'); // Redirect to the login page
+        } else {
+          // Handle errors (e.g., show error messages to the user)
+          alert(data.message || 'Registration failed. Please try again.');
+        }
+      })
+      .catch((error) => console.error('Error:', error));
   };
 
   return (
@@ -32,8 +44,7 @@ function Register() {
             padding: 20px;
             border-radius: 25px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-            background-color: #867A6B;
-            tranparency: 0.5;
+            background-color: #9b8a69;
           }
         .logo {
           width: 10%;
@@ -52,16 +63,7 @@ function Register() {
         .register-form label {
           margin-bottom: 5px;
         }
-        #name {
-          margin-top: -20px;
-        }
-        #email {
-          margin-top: -20px;
-        }
-        #password {
-          margin-top: -20px;
-        }
-        #confirm-password {
+        #name, #email, #password, #confirm-password {
           margin-top: -20px;
         }
         .register-form input[type="text"],
@@ -69,19 +71,21 @@ function Register() {
         .register-form input[type="password"] {
           margin-bottom: 0px;
           padding: 10px;
-          border: 1px solid #ccc;
+          border: 0.5px solid ##513A34;
           border-radius: 10px;
+          background-color: #ede5d7;
+          // text-align: center ;
+          
         }
-          .register-form button[type="submit"] {
-            padding: 10px 10px;
-            border: none;
-            border-radius: 5px;
-            background-image: linear-gradient(to right, #332620, #C0B69D);
-            color: #fff;
-            cursor: pointer;
-          }
-            
-          }
+        .register-form button[type="submit"] {
+          padding: 10px 10px;
+          border: ##513A34;
+          border-radius: 2px;
+          background-image: linear-gradient(to right, #EDE5D7 , #9B8A69);
+          color: #543B34;
+          cursor: pointer;
+          font-weight:600 ;
+        }
         .register-form p {
           margin-top: 10px;
           text-align: center;
@@ -101,14 +105,14 @@ function Register() {
         `}
       </style>
 
-      <div className="logo">
+      {/* <div className="logo">
         <img src="ilm.png" alt="" />
-      </div>
+      </div> */}
 
       <div style={{ textAlign: "center" }}>
         <div style={{ width: "300px", margin: "0 auto", padding: "0px" }}>
           <div className="main">
-          <img src="ilm.png" alt="" />
+            <img src="ilm.png" alt="" />
           </div>
         </div>
       </div>

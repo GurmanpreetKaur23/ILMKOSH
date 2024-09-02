@@ -17,7 +17,7 @@ const Ilmkosh = () => {
   const navigate = useNavigate(); // Initialize useNavigate
 
   const redirectToGenre = (genre) => {
-    navigate(`/genre/${genre}`); // Navigate to the genre page
+    navigate(`/genre/${genre}`); // jehri genre te click hoyega usi de page de redirect hojayega
   };
 
   return (
@@ -29,8 +29,8 @@ const Ilmkosh = () => {
           className="book"
           style={{
             backgroundColor: genre.color,
-            color: '#FFD700', // Gold text for a royal look
-            fontFamily: 'Georgia, serif', // A more royal, elegant font
+            color: '#FFD700', 
+            fontFamily: 'Georgia, serif', 
           }}
           onMouseEnter={() => setHoveredBook(index)}
           onMouseLeave={() => setHoveredBook(null)}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 const Romance = () => {
@@ -8,29 +8,34 @@ const Romance = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=biography&key=AIzaSyCSvSsw52clyt8ozO8HuXn6u6H7_PwtfOU&maxResults=30`);
-        setBooks(response.data.items);
+        const response = await axios.get("https://www.googleapis.com/books/v1/volumes?q=Biography&key=AIzaSyCSvSsw52clyt8ozO8HuXn6u6H7_PwtfOU&maxResults=39");
+        const filteredBooks = response.data.items.filter(book => book.volumeInfo.imageLinks?.thumbnail);
+        
+        // Log the fetched book details
+        console.log('Fetched Books:', filteredBooks);
+        
+        setBooks(filteredBooks);
       } catch (error) {
-        console.error(error);
+        console.error('Error fetching books:', error);
       }
     };
     fetchBooks();
   }, []);
 
-  const handleReadClick = (book) => {
+  const handleReadClick = useCallback((book) => {
     setSelectedBook(book);
-  };
+  }, []);
 
-  const handleClosePopup = () => {
+  const handleClosePopup = useCallback(() => {
     setSelectedBook(null);
-  };
+  }, []);
 
-  const handleOpenPreview = () => {
-    if (selectedBook && selectedBook.volumeInfo.previewLink) {
+  const handleOpenPreview = useCallback(() => {
+    if (selectedBook?.volumeInfo?.previewLink) {
       window.open(selectedBook.volumeInfo.previewLink, '_blank');
     }
-    setSelectedBook(null); // Close the popup after opening the link
-  };
+    setSelectedBook(null);
+  }, [selectedBook]);
 
   return (
     <div className='Main'>
@@ -57,7 +62,6 @@ const Romance = () => {
             justify-items: center;
           }
           .book-item button {
-            grid-row: 4;
             border-radius: 10px;
             border: 2px solid #D8C3A5;
             background-color: #D8C3A5;
@@ -71,7 +75,6 @@ const Romance = () => {
           }
           .book-item h3 {
             font-size: 1em;
-            flex-wrap: wrap;
             margin-top: 10px;
           }
           .book-item p {
@@ -118,7 +121,7 @@ const Romance = () => {
             width: 80%;
             max-width: 600px;
             max-height: 80%;
-            overflow-y: auto; /* Allows vertical scrolling */
+            overflow-y: auto;
             position: relative;
           }
           .popup-content button {
@@ -142,16 +145,24 @@ const Romance = () => {
         Biography Books
       </h1>
       <div className="books-list">
-        {books.map((book) => (
-          <div key={book.id} className="book-item">
-            <img src={book.volumeInfo.imageLinks?.thumbnail} alt={book.volumeInfo.title} />
-            <h3 className="booktitle">
-              {book.volumeInfo.title}
-            </h3>
-            <p className="booktitle">{book.volumeInfo.authors?.join(', ')}</p>
-            <button onClick={() => handleReadClick(book)}>Read</button>
-          </div>
-        ))}
+        {books.length > 0 ? (
+          books.map((book) => (
+            <div key={book.id} className="book-item">
+              <img
+                src={book.volumeInfo.imageLinks.thumbnail}
+                alt={book.volumeInfo.title}
+                onError={(e) => e.target.style.display = 'none'} // Hide the image if an error occurs
+              />
+              <h3 className="booktitle">
+                {book.volumeInfo.title}
+              </h3>
+              <p className="booktitle">{book.volumeInfo.authors?.join(', ')}</p>
+              <button onClick={() => handleReadClick(book)}>Read</button>
+            </div>
+          ))
+        ) : (
+          <p>No books available.</p>
+        )}
       </div>
       {selectedBook && (
         <div className="popup-container">
